@@ -1,0 +1,22 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xkvms.nourspeed.io
+spec:
+  group: nourspeed.io
+  names:
+    kind: XKvm
+    plural: xkvms
+  versions:
+    - name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+      served: true
+      referenceable: true

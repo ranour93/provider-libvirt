@@ -1,0 +1,11 @@
+apiVersion: pool.nourspeed.io/v1alpha1
+kind: Pool
+metadata:
+  name: cluster-crossplane
+spec:
+  forProvider:
+    name: cluster-crossplane
+    type: dir
+    path: /home/rnour/cluster_crossplane
+  providerConfigRef:
+    name: default

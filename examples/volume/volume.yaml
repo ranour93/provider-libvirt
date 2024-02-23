@@ -1,0 +1,14 @@
+apiVersion: volume.nourspeed.io/v1alpha1
+kind: Volume
+metadata:
+  labels:
+    libvirt.nourspeed.io/volume-name: centos7
+  name: centos7
+spec:
+  forProvider:
+    name: centos7
+    pool: cluster-crossplane
+    source: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+    format: qcow2
+  providerConfigRef:
+    name: default

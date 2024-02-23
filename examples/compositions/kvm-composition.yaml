@@ -1,0 +1,117 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: centos7-vm
+spec:
+  compositeTypeRef:
+    apiVersion: nourspeed.io/v1alpha1
+    kind: XKvm
+  resources:
+    - name: libvirt-provider-config
+      base:
+        apiVersion: libvirt.nourspeed.io/v1beta1
+        kind: ProviderConfig
+        spec:
+          source: Secret
+          secretRef:
+            name: example-creds
+            namespace: crossplane-system
+            key: credentials
+      readinessChecks:
+        - type: None
+    - name: crossplane-pool
+      base:
+        apiVersion: pool.nourspeed.io/v1alpha1
+        kind: Pool
+        spec:
+          forProvider:
+            name: cluster-crossplane
+            type: dir
+            path: /home/rnour/cluster_crossplane
+          providerConfigRef:
+            name: default
+      readinessChecks:
+        - type: None
+    - name: crossplane-volume
+      base:
+        apiVersion: volume.nourspeed.io/v1alpha1
+        kind: Volume
+        spec:
+          forProvider:
+            name: centos7
+            pool: cluster-crossplane
+            source: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+            format: qcow2
+          providerConfigRef:
+            name: default
+      readinessChecks:
+        - type: None
+    - name: commoninit
+      base:
+        apiVersion: cloudinit.nourspeed.io/v1alpha1
+        kind: Disk
+        spec:
+          forProvider:
+            name: "commoninit.iso"
+            pool: cluster-crossplane
+            userData: |
+              #cloud-config
+              # vim: syntax=yaml
+              #
+              # ***********************
+              # 	---- for more examples look at: ------
+              # ---> https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+              # ******************************
+              #
+              # This is the configuration syntax that the write_files module
+              # will know how to understand. encoding can be given b64 or gzip or (gz+b64).
+              # The content will be decoded accordingly and then written to the path that is
+              # provided.
+              #
+              # Note: Content strings here are truncated for example purposes.
+              ssh_pwauth: True
+              chpasswd:
+                list: |
+                   root: test
+                expire: False
+
+              users:
+                - name: <username>
+                  ssh_authorized_keys:
+                    - ssh-rsa <ssh-public-key>
+                  sudo: ['ALL=(ALL) NOPASSWD:ALL']
+                  shell: /bin/bash
+                  groups: wheel
+          providerConfigRef:
+            name: default
+      readinessChecks:
+        - type: None
+    - name: domain
+      base:
+        apiVersion: domain.nourspeed.io/v1alpha1
+        kind: Domain
+        spec:
+          forProvider:
+            name: centos7-vm-crossplane
+            memory: 2048
+            vcpu: 2
+            qemuAgent: false
+            networkInterface:
+              - networkName: "default"
+                waitForLease: true
+            disk:
+              - volumeId: "/home/rnour/cluster_crossplane/centos7"
+            cloudinitRef:
+              name: commoninit
+            console:
+              - type: "pty"
+                targetType: "serial"
+                targetPort: "0"
+            graphics:
+              - type: "spice"
+                listenType: "address"
+                autoport: true
+          providerConfigRef:
+            name: default
+      readinessChecks:
+        - type: None

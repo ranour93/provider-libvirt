@@ -1,0 +1,27 @@
+apiVersion: domain.nourspeed.io/v1alpha1
+kind: Domain
+metadata:
+  name: centos7-vm-crossplane
+spec:
+  forProvider:
+    name: centos7-vm-crossplane
+    memory: 2048
+    vcpu: 2
+    qemuAgent: false
+    networkInterface:
+      - networkName: "default"
+        waitForLease: true
+    disk:
+     - volumeId: "/home/rnour/cluster_crossplane/centos7"
+    cloudinitRef:
+      name: commoninit
+    console:
+      - type: "pty"
+        targetType: "serial"
+        targetPort: "0"
+    graphics:
+      - type: "spice"
+        listenType: "address"
+        autoport: true
+  providerConfigRef:
+    name: default

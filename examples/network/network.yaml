@@ -1,0 +1,17 @@
+apiVersion: network.nourspeed.io/v1alpha1
+kind: Network
+metadata:
+  name: k8snet
+spec:
+  forProvider:
+    name: k8snet
+    mode: bridge
+    domain: "k8s.local"
+    addresses:
+      - "10.17.3.0/24"
+      - "2001:db8:ca2:2::1/64"
+    dns:
+      - enabled: true
+        localOnly: true
+  providerConfigRef:
+    name: default

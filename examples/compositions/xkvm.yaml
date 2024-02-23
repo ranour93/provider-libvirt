@@ -1,0 +1,6 @@
+apiVersion: nourspeed.io/v1alpha1
+kind: XKvm
+metadata:
+  name: my-first-vm
+spec:
+  name: "Test-VM"
