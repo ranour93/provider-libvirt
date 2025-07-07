@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="34">
+	<testsuite name="github.com/nourspeed/provider-libvirt/internal/features" tests="0" failures="0" errors="0" id="0" hostname="x870e" time="0.000" timestamp="2025-07-04T21:01:43+07:00">
+		<system-out><![CDATA[	github.com/nourspeed/provider-libvirt/cmd/generator		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/cmd/provider		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/clients		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/cloudinit/disk		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/domain/domain		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/network/network		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/pool/pool		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/providerconfig		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/volume/volume		coverage: 0.0% of statements]]></system-out>
+	</testsuite>
+	<testsuite name="github.com/nourspeed/provider-libvirt/internal/naming" tests="29" failures="0" errors="0" id="1" hostname="x870e" time="0.002" timestamp="2025-07-04T21:01:43+07:00">
+		<properties>
+			<property name="coverage.statements.pct" value="74.60"></property>
+		</properties>
+		<testcase name="TestGenerateName" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/StrategyNone" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/StrategyPrefixProvider" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/StrategyPrefixHost" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/StrategyPrefixHostComplexProvider" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/SanitizeSpecialChars" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/TruncateLongName" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestGenerateName/CollapseMultipleHyphens" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/AlreadyValid" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/UpperCase" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/SpecialCharacters" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/LeadingTrailingHyphens" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/Underscores" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestSanitizeName/Dots" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname/StandardPrefix" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname/StandardSuffix" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname/ProviderPrefix" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname/ComplexName" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestExtractHostname/NoPattern" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/PrefixProvider" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/PrefixHost" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/Hash" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/None" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/Empty" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/Invalid" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+		<testcase name="TestParseStrategy/CaseInsensitive" classname="github.com/nourspeed/provider-libvirt/internal/naming" time="0.000"></testcase>
+	</testsuite>
+	<testsuite name="github.com/nourspeed/provider-libvirt/internal/webhook/domain" tests="5" failures="0" errors="0" id="2" hostname="x870e" time="0.010" timestamp="2025-07-04T21:01:43+07:00">
+		<properties>
+			<property name="coverage.statements.pct" value="55.90"></property>
+		</properties>
+		<testcase name="TestValidateDomain" classname="github.com/nourspeed/provider-libvirt/internal/webhook/domain" time="0.000"></testcase>
+		<testcase name="TestValidateDomain/InvalidDomainNoProviderConfig" classname="github.com/nourspeed/provider-libvirt/internal/webhook/domain" time="0.000"></testcase>
+		<testcase name="TestValidateDomain/ValidDomainNoReferences" classname="github.com/nourspeed/provider-libvirt/internal/webhook/domain" time="0.000"></testcase>
+		<testcase name="TestValidateDomain/ValidDomainWithMatchingCloudinit" classname="github.com/nourspeed/provider-libvirt/internal/webhook/domain" time="0.000"></testcase>
+		<testcase name="TestValidateDomain/InvalidDomainMismatchedCloudinit" classname="github.com/nourspeed/provider-libvirt/internal/webhook/domain" time="0.000"></testcase>
+		<system-out><![CDATA[	github.com/nourspeed/provider-libvirt/internal/webhook		coverage: 0.0% of statements]]></system-out>
+	</testsuite>
+</testsuites>

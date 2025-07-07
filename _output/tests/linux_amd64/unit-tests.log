@@ -1,0 +1,95 @@
+	github.com/nourspeed/provider-libvirt/cmd/generator		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/cmd/provider		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/clients		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/cloudinit/disk		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/domain/domain		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/network/network		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/pool/pool		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/providerconfig		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/internal/controller/volume/volume		coverage: 0.0% of statements
+?   	github.com/nourspeed/provider-libvirt/internal/features	[no test files]
+=== RUN   TestGenerateName
+=== RUN   TestGenerateName/StrategyNone
+=== RUN   TestGenerateName/StrategyPrefixProvider
+=== RUN   TestGenerateName/StrategyPrefixHost
+=== RUN   TestGenerateName/StrategyPrefixHostComplexProvider
+=== RUN   TestGenerateName/SanitizeSpecialChars
+=== RUN   TestGenerateName/TruncateLongName
+=== RUN   TestGenerateName/CollapseMultipleHyphens
+--- PASS: TestGenerateName (0.00s)
+    --- PASS: TestGenerateName/StrategyNone (0.00s)
+    --- PASS: TestGenerateName/StrategyPrefixProvider (0.00s)
+    --- PASS: TestGenerateName/StrategyPrefixHost (0.00s)
+    --- PASS: TestGenerateName/StrategyPrefixHostComplexProvider (0.00s)
+    --- PASS: TestGenerateName/SanitizeSpecialChars (0.00s)
+    --- PASS: TestGenerateName/TruncateLongName (0.00s)
+    --- PASS: TestGenerateName/CollapseMultipleHyphens (0.00s)
+=== RUN   TestSanitizeName
+=== RUN   TestSanitizeName/AlreadyValid
+=== RUN   TestSanitizeName/UpperCase
+=== RUN   TestSanitizeName/SpecialCharacters
+=== RUN   TestSanitizeName/LeadingTrailingHyphens
+=== RUN   TestSanitizeName/Underscores
+=== RUN   TestSanitizeName/Dots
+--- PASS: TestSanitizeName (0.00s)
+    --- PASS: TestSanitizeName/AlreadyValid (0.00s)
+    --- PASS: TestSanitizeName/UpperCase (0.00s)
+    --- PASS: TestSanitizeName/SpecialCharacters (0.00s)
+    --- PASS: TestSanitizeName/LeadingTrailingHyphens (0.00s)
+    --- PASS: TestSanitizeName/Underscores (0.00s)
+    --- PASS: TestSanitizeName/Dots (0.00s)
+=== RUN   TestExtractHostname
+=== RUN   TestExtractHostname/StandardPrefix
+=== RUN   TestExtractHostname/StandardSuffix
+=== RUN   TestExtractHostname/ProviderPrefix
+=== RUN   TestExtractHostname/ComplexName
+=== RUN   TestExtractHostname/NoPattern
+--- PASS: TestExtractHostname (0.00s)
+    --- PASS: TestExtractHostname/StandardPrefix (0.00s)
+    --- PASS: TestExtractHostname/StandardSuffix (0.00s)
+    --- PASS: TestExtractHostname/ProviderPrefix (0.00s)
+    --- PASS: TestExtractHostname/ComplexName (0.00s)
+    --- PASS: TestExtractHostname/NoPattern (0.00s)
+=== RUN   TestParseStrategy
+=== RUN   TestParseStrategy/PrefixProvider
+=== RUN   TestParseStrategy/PrefixHost
+=== RUN   TestParseStrategy/Hash
+=== RUN   TestParseStrategy/None
+=== RUN   TestParseStrategy/Empty
+=== RUN   TestParseStrategy/Invalid
+=== RUN   TestParseStrategy/CaseInsensitive
+--- PASS: TestParseStrategy (0.00s)
+    --- PASS: TestParseStrategy/PrefixProvider (0.00s)
+    --- PASS: TestParseStrategy/PrefixHost (0.00s)
+    --- PASS: TestParseStrategy/Hash (0.00s)
+    --- PASS: TestParseStrategy/None (0.00s)
+    --- PASS: TestParseStrategy/Empty (0.00s)
+    --- PASS: TestParseStrategy/Invalid (0.00s)
+    --- PASS: TestParseStrategy/CaseInsensitive (0.00s)
+PASS
+coverage: 74.6% of statements
+ok  	github.com/nourspeed/provider-libvirt/internal/naming	0.002s	coverage: 74.6% of statements
+	github.com/nourspeed/provider-libvirt/internal/webhook		coverage: 0.0% of statements
+=== RUN   TestValidateDomain
+=== RUN   TestValidateDomain/InvalidDomainNoProviderConfig
+=== RUN   TestValidateDomain/ValidDomainNoReferences
+=== RUN   TestValidateDomain/ValidDomainWithMatchingCloudinit
+=== RUN   TestValidateDomain/InvalidDomainMismatchedCloudinit
+--- PASS: TestValidateDomain (0.00s)
+    --- PASS: TestValidateDomain/InvalidDomainNoProviderConfig (0.00s)
+    --- PASS: TestValidateDomain/ValidDomainNoReferences (0.00s)
+    --- PASS: TestValidateDomain/ValidDomainWithMatchingCloudinit (0.00s)
+    --- PASS: TestValidateDomain/InvalidDomainMismatchedCloudinit (0.00s)
+PASS
+coverage: 55.9% of statements
+ok  	github.com/nourspeed/provider-libvirt/internal/webhook/domain	0.010s	coverage: 55.9% of statements
+	github.com/nourspeed/provider-libvirt/internal/webhook/volume		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/cloudinit/v1alpha1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/domain/v1alpha1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/network/v1alpha1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/pool/v1alpha1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/v1alpha1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/v1beta1		coverage: 0.0% of statements
+	github.com/nourspeed/provider-libvirt/apis/volume/v1alpha1		coverage: 0.0% of statements

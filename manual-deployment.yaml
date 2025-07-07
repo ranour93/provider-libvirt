@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: provider-libvirt
+  namespace: crossplane-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: provider-libvirt
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: provider-libvirt
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: provider-libvirt
+subjects:
+- kind: ServiceAccount
+  name: provider-libvirt
+  namespace: crossplane-system
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-libvirt
+  namespace: crossplane-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: provider-libvirt
+  template:
+    metadata:
+      labels:
+        app: provider-libvirt
+    spec:
+      serviceAccountName: provider-libvirt
+      imagePullSecrets:
+      - name: container-repo-auth
+      containers:
+      - name: provider
+        image: harbor.golder.lan/library/provider-libvirt:latest
+        args:
+          - --debug
+          - --terraform-version=1.2.1
+          - --terraform-provider-source=dmacvicar/libvirt
+          - --terraform-provider-version=0.7.6
+        env:
+          - name: TERRAFORM_VERSION
+            value: "1.2.1"
+          - name: SSL_CERT_DIR
+            value: "/etc/ssl/certs"
+          - name: USER
+            value: "provider"
+        volumeMounts:
+          - name: ca-certs
+            mountPath: /etc/ssl/certs/golder-ca.crt
+            subPath: ca-bundle.crt
+            readOnly: true
+          - name: libvirt-tls-certs
+            mountPath: /etc/pki/CA/cacert.pem
+            subPath: cacert.pem
+            readOnly: true
+          - name: libvirt-tls-certs
+            mountPath: /etc/pki/libvirt/clientcert.pem
+            subPath: clientcert.pem
+            readOnly: true
+          - name: libvirt-tls-certs
+            mountPath: /etc/pki/libvirt/clientkey.pem
+            subPath: clientkey.pem
+            readOnly: true
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+      volumes:
+      - name: ca-certs
+        configMap:
+          name: golder-ca-certs
+      - name: libvirt-tls-certs
+        secret:
+          secretName: libvirt-tls-certs
+          defaultMode: 0600

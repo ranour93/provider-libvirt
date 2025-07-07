@@ -1,0 +1,38 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-libvirt
+spec:
+  package: harbor.golder.lan/rossg/provider-libvirt:v0.0.0
+  runtimeConfigRef:
+    name: provider-libvirt-config
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: provider-libvirt-config
+spec:
+  deploymentTemplate:
+    spec:
+      selector: {}
+      template:
+        spec:
+          containers:
+          - name: package-runtime
+            args:
+              - --debug
+              - --enable-webhooks=false  # Disable webhooks initially for testing
+            env:
+              - name: TERRAFORM_VERSION
+                value: "1.2.1"
+              - name: SSL_CERT_DIR
+                value: "/etc/ssl/certs"
+            volumeMounts:
+              - name: ca-certs
+                mountPath: /etc/ssl/certs/golder-ca.crt
+                subPath: ca-bundle.crt
+                readOnly: true
+          volumes:
+          - name: ca-certs
+            configMap:
+              name: golder-ca-certs
