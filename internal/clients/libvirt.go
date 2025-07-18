@@ -7,6 +7,9 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
@@ -19,13 +22,18 @@ import (
 )
 
 const (
-    keyUri = "uri"
+	keyUri      = "uri"
+	keyCACert   = "cacert"     // CA certificate content
+	keyPKIPath  = "pkipath"    // Custom PKI directory path
+	keyNoVerify = "no_verify"  // Skip certificate verification
+	
 	// error messages
 	errNoProviderConfig     = "no providerConfigRef provided"
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal libvirt credentials as JSON"
+	errSetupCustomCA        = "cannot setup custom CA certificate"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -65,9 +73,48 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{}
-        if v, ok := creds[keyUri]; ok {
-          ps.Configuration[keyUri] = v
-        }
+		if v, ok := creds[keyUri]; ok {
+			ps.Configuration[keyUri] = v
+		}
+
+		// Handle custom CA certificate
+		if caCert, ok := creds[keyCACert]; ok && caCert != "" {
+			pkiPath := "/tmp/libvirt-pki"
+			if err := setupCustomCA(pkiPath, caCert); err != nil {
+				return ps, errors.Wrap(err, errSetupCustomCA)
+			}
+			ps.Configuration[keyPKIPath] = pkiPath
+		}
+
+		// Handle custom PKI path (if specified and not using inline CA)
+		if pkiPath, ok := creds[keyPKIPath]; ok && pkiPath != "" {
+			// Only use if no inline CA was provided
+			if _, hasCACert := creds[keyCACert]; !hasCACert {
+				ps.Configuration[keyPKIPath] = pkiPath
+			}
+		}
+
+		// Handle certificate verification options
+		if noVerify, ok := creds[keyNoVerify]; ok {
+			ps.Configuration[keyNoVerify] = noVerify
+		}
+
 		return ps, nil
 	}
+}
+
+// setupCustomCA creates a PKI directory with the provided CA certificate
+func setupCustomCA(pkiPath, caCert string) error {
+	// Create PKI directory
+	if err := os.MkdirAll(pkiPath, 0755); err != nil {
+		return errors.Wrap(err, "cannot create PKI directory")
+	}
+
+	// Write CA certificate
+	caPath := filepath.Join(pkiPath, "cacert.pem")
+	if err := ioutil.WriteFile(caPath, []byte(caCert), 0644); err != nil {
+		return errors.Wrap(err, "cannot write CA certificate")
+	}
+
+	return nil
 }

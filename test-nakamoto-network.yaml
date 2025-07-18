@@ -1,0 +1,18 @@
+apiVersion: network.nourspeed.io/v1alpha1
+kind: Network
+metadata:
+  name: test-nakamoto-network
+spec:
+  forProvider:
+    name: crossplane-test-network
+    mode: nat
+    domain: crossplane-test.local
+    addresses:
+      - "10.200.0.0/24"
+    dhcp:
+      - enabled: true
+    dns:
+      - enabled: true
+        localOnly: true
+  providerConfigRef:
+    name: nakamoto
